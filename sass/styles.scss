@@ -1,0 +1,206 @@
+//Including all the partials
+
+@import 'reset', 'variables' , 'mixins';
+
+body{
+  @include flexBox(row);
+  font-family: 'Raleway', sans-serif;
+  background-color: $very-dark-blue;
+
+  //Background for desktop version
+
+  @include background-property(bg-desktop, no-repeat, 100% 50%, bottom);
+
+  //Background for the mobile version
+
+  @include mobile{
+    @include background-property(bg-mobile, no-repeat, 100% 100%);
+  }
+}
+
+//Container housing Left and Right container
+
+.container {
+  @include flexBox(row);
+
+  //Making the container responsive
+
+  @include mobile{
+    @include flexBox(column);
+    width: 75%;
+    height: 95vh;
+  }
+}
+
+//Styling for the left-container showing the logo and option icons
+
+.left-container {
+  @include flexBox(column);
+  height: 200px;
+  width: 325px;
+  background-color: $dark-blue;
+  margin-right: 20px;
+  border-radius: 8px 90px 8px 8px;
+  padding: 40px;
+
+  @include mobile{
+    align-self: stretch;
+    width: 100%;
+    margin: 0 0 20px;
+  }
+}
+
+.logo-icon {
+  align-self: stretch;
+}
+
+.icon-tray {
+  @include flexBox(row);
+  margin-top: 20px;
+  align-self: flex-start;
+
+  div {
+    @include flexBox(row);
+    margin-right: 10px;
+    background-color: $very-dark-blue;
+    height: 40px;
+    width: 45px;
+    border-radius: 8px;
+  }
+}
+
+//Styling for the right-container showing the data consumption
+
+.right-container {
+  align-self: flex-end;
+  position: relative;
+  @include flexBox(column);
+  color: $white;
+  background-color: $dark-blue;
+  padding: 0 30px;
+  height: 150px;
+  border-radius: 8px;
+
+  @include mobile{
+    width: 100%;
+  }
+
+  p {
+    align-self: flex-start;
+
+    span {
+      font-weight: 700;
+    }
+  }
+}
+
+//Styling for the progress bar contained in right-container
+
+.progress-bar {
+  height: 20px;
+  width: 450px;
+  background-color: $very-dark-blue;
+  border-radius: 25px;
+  margin: 15px 0 5px;
+
+  @include mobile{
+    width: 100%;
+  }
+}
+
+.progress-status {
+  position: relative;
+  height: 100%;
+  width: 82%;
+  background-image: linear-gradient(to right, hsl(6, 100%, 80%), hsl(335, 100%, 65%));
+  border-radius: 24px;
+  border: 2px solid $very-dark-blue;
+
+  //White bubble showing on the right side of progress status
+
+  &::before {
+    content: '';
+    height: 12px;
+    width: 12px;
+    border-radius: 10px;
+    position: absolute;
+    right: 3px;
+    bottom: 2px;
+    background-color: $white;
+  }
+}
+
+//Text below the progress bar
+
+.progress-text {
+  @include flexBox(row);
+  align-self: stretch;
+}
+
+.end-text {
+  margin-left: auto;
+}
+
+//Message-bubble showing the data left
+
+.bubble-container {
+  position: absolute;
+  right: 35px;
+  top: -40px;
+  background-color: $white;
+  height: 65px;
+  width: 150px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+
+  //Message-bubble arrow
+
+  &::after {
+    content: '';
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%);
+    display: block;
+    height: 20px;
+    width: 20px;
+    background-color: $white;
+    position: absolute;
+    right: 13px;
+    bottom: -18px;
+
+    //Hiding the arrow for mobile version
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+  //Message-bubble text
+
+  p {
+    color: $grayish-blue;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 10px;
+
+    span {
+      color: $black;
+      font-size: 2rem;
+    }
+  }
+
+  //Making the Message-bubble responsive
+
+  @include mobile{
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    right: 50%;
+    top: 90%;
+    transform: translateX(50%);
+  }
+}
+
+//Adding shadow to all the required containers
+
+@each $shadow in left, right, bubble {
+  .#{$shadow}-container {
+    @include box-shadow;
+  }
+}
